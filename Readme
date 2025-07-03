@@ -94,9 +94,7 @@ You can modify the URL list in the script to use your own documents.
 * Add web interface using FastAPI or Streamlit.
 * Include more flexible vector store backends.
 
-## 📄 License
 
-MIT License
 
 ---
 
