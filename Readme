@@ -1,0 +1,103 @@
+
+# 📄 Agentic AI PDF URL Assistant
+
+This project implements an agentic AI assistant capable of reading and interacting with knowledge extracted from PDFs available via URL. It uses OpenAI embeddings and PostgreSQL-based vector search (pgvector) to provide conversational search and insights over the documents.
+
+## 🚀 Features
+
+* Load PDFs directly from a URL into a vector database.
+* Use OpenAI's `text-embedding-ada-002` for semantic search.
+* Persist interactions via PostgreSQL for multi-session conversation tracking.
+* CLI-based assistant with memory and document-aware responses.
+* Supports reloading and recreating the vector store as needed.
+
+## 🛠️ Tech Stack
+
+* **[PHI](https://github.com/joaomdmoura/phi)** (for AI assistant orchestration)
+* **OpenAI** Embeddings
+* **PostgreSQL + pgvector** (for vector storage)
+* **Typer** (for CLI interface)
+* **Python 3.9+**
+
+## 📦 Installation
+
+1. **Clone the repository**:
+
+   ```bash
+   git clone https://github.com/your-username/agenticai-pdf-url.git
+   cd agenticai-pdf-url
+   ```
+
+2. **Set up your environment**:
+
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # on Windows: venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
+
+3. **Create a `.env` file** with your keys:
+
+   ```
+   OPENAI_API_KEY=your_openai_key
+   GROQ_API_KEY=your_groq_key
+   ```
+
+4. **Start PostgreSQL locally**, and make sure `pgvector` is installed:
+
+   ```sql
+   CREATE EXTENSION IF NOT EXISTS vector;
+   ```
+
+5. **Run the assistant**:
+
+   ```bash
+   python AgenticAi_pdf_Url.py
+   ```
+
+## ⚙️ Environment Variables
+
+The script uses the following environment variables (loaded via `python-dotenv`):
+
+| Variable         | Description                        |
+| ---------------- | ---------------------------------- |
+| `OPENAI_API_KEY` | API key for OpenAI embeddings      |
+| `GROQ_API_KEY`   | API key for Groq (if used for LLM) |
+| `DATABASE_URL`   | PostgreSQL connection string       |
+
+## 🧠 How It Works
+
+* Downloads PDF content from the specified URL.
+* Extracts text and generates 1536-dimension vectors using OpenAI embeddings.
+* Stores vectors in a PostgreSQL collection via `pgvector`.
+* Initializes or reloads the knowledge base on each run.
+* Uses PHI’s `Assistant` to chat with the knowledge using a CLI interface.
+
+## 📚 Example
+
+Default PDF used:
+
+```
+https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf
+```
+
+You can modify the URL list in the script to use your own documents.
+
+## 📌 Notes
+
+* Ensure you have `pgvector` installed in your PostgreSQL instance.
+* The assistant supports session memory—resumes conversations if a prior run ID is found.
+
+## 📝 To-Do
+
+* Add support for uploading local PDFs.
+* Add web interface using FastAPI or Streamlit.
+* Include more flexible vector store backends.
+
+## 📄 License
+
+MIT License
+
+---
+
+Let me know if you'd like this customized further (e.g., change PDF URL, add FastAPI support, or create badges).
